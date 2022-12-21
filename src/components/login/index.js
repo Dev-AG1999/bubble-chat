@@ -65,7 +65,7 @@ setOpen(false)
 
 
   return (
-    <div >
+    <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100%",width:"100%"}} >
       <Modal style={{width:"100vw",height:"100vh",opacity:"1"}} open={open} onClose={() => setOpen(false)}>
 <div style={{height:"100vh",display:"flex",justifyContent:"center",alignItems:"center",width:"100%",background:"white"}}>
         <div className="login_wrapper">
