@@ -3,6 +3,14 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  onSnapshot,
+  query,
+  orderBy,
+} from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,6 +26,39 @@ const firebaseConfig = {
   measurementId: "G-H6RQBQV9Q1"
 };
 
+async function sendMessage(roomId, user, text) {
+  try {
+      await addDoc(collection(db, 'chat-rooms', roomId, 'messages'), {
+          uid: user.uid,
+          displayName: user.displayName,
+          text: text.trim(),
+          timestamp: serverTimestamp(),
+      });
+  } catch (error) {
+      console.error(error);
+  }
+}
+function getMessages(roomId, callback) {
+  return onSnapshot(
+      query(
+          collection(db, 'chat-rooms', roomId, 'messages'),
+          orderBy('timestamp', 'asc')
+      ),
+      (querySnapshot) => {
+          const messages = querySnapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+          }));
+          callback(messages);
+      }
+  );
+}
+
+
+// ...
+
+
+
 // Use this to initialize the firebase App
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -25,4 +66,8 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
 const auth = firebase.auth();
 const storage = firebase.storage();
-export { auth, db,storage };
+export { auth, db,storage , sendMessage ,getMessages};
+
+
+
+

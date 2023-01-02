@@ -1,118 +1,18 @@
 import React from "react";
 import { Navbar } from "./Navbar";
-import { Chat } from "./chat";
 import "../../src/style.css";
+import { chats } from "./chats";
+import { useNavigate } from "react-router-dom";
+import { Avatar } from '@mui/material'
+import "../../src/style.css"
 
 
 export const Sidebar = () => {
-  const chats=[
-    {
-      id:1,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"kemon acho"
 
-    },
-    {
-      id:2,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"kemon acho"
-
-    },
-    {
-      id:3,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"hi,valo achi"
-
-    },
-    {
-      id:4,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"ki korcho"
-
-    },
-    {
-      id:5,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"how are you"
-
-    },
-    {
-      id:6,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-      
-    },
-    {
-      id:7,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    },
-    {
-      id:8,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    },
-    {
-      id:9,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    },
-    {
-      id:10,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    },
-    {
-      id:11,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    },
-    {
-      id:12,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    },
-    {
-      id:13,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    },
-    {
-      id:14,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    },
-    {
-      id:15,
-      image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aishwariya",
-      text:"happy birthday"
-
-    }
-  ]
+const history=useNavigate();
+   const Chatclicked=()=>{
+history("/chatpage")
+   }
   return (
     <div
       className="sidebar_container"
@@ -144,7 +44,7 @@ export const Sidebar = () => {
       
       </div>
 
-     <div style={{overflowY:"scroll"}}> 
+     <div className="Msglist" > 
         {
           chats.map((chat)=>(
             
@@ -157,14 +57,41 @@ export const Sidebar = () => {
      
       
      }}  className="chats">
-            <Chat key={chat.id} image={chat.image} username={chat.username} text={chat.text} />
+         {/* <Chat  image={chat.image} username={chat.username} key={chat.id}>
+                        <Link to={`/chatpage/${chat.id}`}>{chat.username}</Link>
+                    </Chat> */}
+
+<button onClick={Chatclicked} className='chat_btn'>  <div className="chat">
+   <div className='sender_image'>
+      <Avatar src={chat.image} alt=''></Avatar>
+  
+   </div>
+   <div className='msg_overview'>
+<span>{chat.username}</span>
+     
+   </div>
+      </div></button>
+           
             </div>
           ))
         }
         </div>
+
+        <div class="bubble x1"></div>
+    <div class="bubble x2"></div>
+    <div class="bubble x3"></div>
+    <div class="bubble x4"></div>
+    <div class="bubble x5"></div>
+    <div class="bubble x6"></div>
+    <div class="bubble x7"></div>
+    <div class="bubble x8"></div>
+    <div class="bubble x9"></div>
+    <div class="bubble x10"></div>
+        </div>
    
-      </div>
+      
    
     
   );
+  
 };
