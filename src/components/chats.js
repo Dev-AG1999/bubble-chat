@@ -10,35 +10,35 @@ export const chats=[
     {
       id:2,
       image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Aish",
+      username:"Aishwariya",
 
 
     },
     {
       id:3,
       image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"evan",
+      username:"Aishwariya",
 
 
     },
     {
       id:4,
       image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"mahuya",
+      username:"Aishwariya",
      
 
     },
     {
       id:5,
       image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"leena",
+      username:"Aishwariya",
    
 
     },
     {
       id:6,
       image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"Arunuima",
+      username:"Aishwariya",
  
 
       
@@ -46,7 +46,7 @@ export const chats=[
     {
       id:7,
       image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-      username:"krishna",
+      username:"Aishwariya",
   
 
     },

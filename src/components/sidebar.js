@@ -4,21 +4,18 @@ import "../../src/style.css";
 import { Link } from "react-router-dom";
 import { chats } from "./chats";
 import { Avatar } from "@mui/material";
-import "../../src/style.css";
 
 export const Sidebar = () => {
-
   return (
-    <div
-      className="sidebar_container">
-      <div
-        className="navbar" >
+    <div className="sidebar_container">
+      <div className="navbar">
         <Navbar />
       </div>
 
       <div className="Msglist">
         {chats.map((chat) => (
-          <div key={chat.id}
+          <div
+            key={chat.id}
             style={{
               width: "100%",
               justifyContent: "center",
@@ -30,7 +27,10 @@ export const Sidebar = () => {
             {/* <Chat  image={chat.image} username={chat.username} key={chat.id}>
                         <Link to={`/chatpage/${chat.id}`}>{chat.username}</Link>
                     </Chat> */}
-            <Link className="chat_btn" to={`/chatpage/${chat.id}/${chat.username}`}>
+            <Link
+              className="chat_btn"
+              to={`/chatpage/${chat.id}/${chat.username}`}
+            >
               {" "}
               <div className="chat">
                 <div className="sender_image">
