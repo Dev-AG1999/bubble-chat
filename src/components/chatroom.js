@@ -6,6 +6,7 @@ import { Link,useParams } from 'react-router-dom';
 import { chats } from './chats';
 import { ChatBubble } from './chat-bubble';
 import firebase from 'firebase/compat/app';
+import styled from "styled-components";
 // import {
 //   collection,
 //   addDoc,
@@ -25,11 +26,13 @@ export const Chatroom=({Username})=> {
 
   const {username}= useParams();
 const {id}= useParams();
-
+const {image}= useParams();
 
  chats.filter((x) => x.username === {username});
  chats.filter((x) => x.id === {id})
-
+chats.filter((x) =>x.image ==={image})
+ console.log("photo",image)
+console.log("id",id)
 
   // use effect listener for fetching comments
   useEffect(() => {
@@ -76,10 +79,18 @@ const {id}= useParams();
       console.log("me",authUser.displayName);
       setIsme(true);
       setUser(authUser.displayName);
+      console.log("isme",isMe)
+      styled.div`
+     align-self: ${isMe ? "flex-end" : "flex-start"};
+      `
+     
     } else {
       // the user has logged out
+    
       setIsme(false);
       setUser(null);
+    
+     
     }
   });
   return () => {
@@ -101,21 +112,24 @@ const sendMessage = (e) => {
   return (
     < div className="chatroom_wrapper">
     
-          <div className='header'>
-          <Avatar src=''></Avatar>
-     
+          <div className='chat_header'>
+          <Avatar src={image}></Avatar>
           <h2>{username}</h2>
     <div>
-                <Link to="/">⬅️ Back to all rooms</Link>
+                <Link style={{textDecoration:"none",color:"white",fontWeight:"bold"}} to="/chatpage">◀ Back</Link>
             </div>
   </div>
 
-  <div className='chatbox'>{
+  <div className='chatbox'>{ 
+
     messages.map((msg)=>(
 
-      <ChatBubble key={msg.id} text={msg.text} username={msg.username} style={{backgroundColor:"white",width:"70%",padding:"10px"}}/>
-    ))
+      <ChatBubble  key={msg.id} text={msg.text} username={msg.username} style={{backgroundColor:"#6600ffd8",color:"white",width:"70%",padding:"2px 10px",  margin: "5px 0",borderRadius:"12px"}}/>
+      
 
+      
+    ))
+  
   }
 
   </div>

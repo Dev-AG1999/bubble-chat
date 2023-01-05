@@ -10,29 +10,9 @@ export const Sidebar = () => {
 
   return (
     <div
-      className="sidebar_container"
-      style={{
-        height: "100vh",
-        background: "rgb(255, 255, 255)",
-        width: "450px",
-        display: "flex",
-        flexDirection: "column",
-        boxShadow:
-          "25px 100px 50px rgba(255, 0, 166, 0.168),   inset -6px 6px 10px #f7fe3181, inset 2px 6px 10px #1a74e5, inset 20px -20px 22px white, inset 40px -40px 44px #a8ceff",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
+      className="sidebar_container">
       <div
-        className="navbar"
-        style={{
-          width: "100%",
-
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-        }}
-      >
+        className="navbar" >
         <Navbar />
       </div>
 
