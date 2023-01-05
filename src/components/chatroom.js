@@ -37,7 +37,7 @@ export const Chatroom = ({ Username }) => {
         .collection("chat-rooms")
         .doc(id)
         .collection("messages")
-        .orderBy("timestamp", "desc")
+        .orderBy("timestamp", "asc")
         .onSnapshot((snapshot) => {
           setMessages(snapshot.docs.map((doc) => doc.data()));
         });
