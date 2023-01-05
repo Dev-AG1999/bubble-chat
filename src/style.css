@@ -58,6 +58,9 @@
   padding: 10px;
   background-color:#8331feac;
   cursor: pointer;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
 }
 .chat{
   display: flex;
@@ -75,12 +78,7 @@
   padding: 0 10px;
  
 }
-.msg_overview>a{
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
 
-}
 .msg_overview>p{
   margin: 0;
 
