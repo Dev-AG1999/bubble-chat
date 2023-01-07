@@ -16,18 +16,18 @@ import firebase from "firebase/compat/app";
 // } from 'firebase/firestore';
 import { auth, db } from "../firebase";
 
-export const Chatroom = ({ Username }) => {
+export const Chatroom = () => {
   const [isMe, setIsme] = useState(false);
   const [messages, setMessages] = useState([]);
   const [User, setUser] = useState(null);
   const [Message, setMessage] = useState("");
 
-  const { username } = useParams();
+  const {username}  = useParams();
   const { id } = useParams();
 
-  chats.filter((x) => x.username === { username });
+  chats.filter((x) => x.username === { username} );
   chats.filter((x) => x.id === { id });
-  console.log("id", id);
+
 
   // use effect listener for fetching comments
   useEffect(() => {
@@ -47,47 +47,32 @@ export const Chatroom = ({ Username }) => {
     };
   }, [id]);
 
-  // function getMessages(id, callback) {
-  //   return onSnapshot(
-  //     db
-  //     .collection("chat-rooms")
-  //     .doc(id)
-  //     .collection("messages")
-  //     .orderBy("timestamp", "desc"),
-  //       (querySnapshot) => {
-  //           const messages = querySnapshot.docs.map((doc) => ({
-  //               id: doc.id,
-  //               ...doc.data(),
-  //           }));
-  //           callback(messages);
-  //       }
-  //   );
-  // }
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // the user has loggeed in
-        console.log("me", authUser.displayName);
+ 
         setIsme(true);
         setUser(authUser.displayName);
-        console.log("isme", isMe);
+  
       } else {
         // the user has logged out
 
         setIsme(false);
-        setUser(Username);
+        setUser(null);
       }
     });
     return () => {
       unsubscribe();
     };
-  }, [isMe, User, Username]);
+  }, [isMe, User]);
 
   const sendMessage = (e) => {
     e.preventDefault();
     db.collection("chat-rooms").doc(id).collection("messages").add({
-      id: Math.random(),
+      id:id,
       text: Message,
       username: User,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -108,7 +93,7 @@ export const Chatroom = ({ Username }) => {
             width: "80%",
           }}
         >
-          {" "}
+        
           <Avatar src=""></Avatar>
           <h3>{username}</h3>
         </div>
@@ -156,6 +141,7 @@ export const Chatroom = ({ Username }) => {
           onClick={(e) => sendMessage(e)}
           className="submit"
           type="submit"
+          disabled={!Message}
         >
           <NearMeIcon />
         </button>
