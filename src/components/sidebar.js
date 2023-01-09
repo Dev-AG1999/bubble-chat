@@ -7,15 +7,17 @@ import { Avatar } from "@mui/material";
 import { Modal } from "@material-ui/core";
 // import { auth, db, storage } from "../firebase";
 // import firebase from "firebase/compat/app";
-// import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+// import { ref, getDownloadURL ,addDoc,uploadBytesResumable} from "firebase/storage";
 
 export const Sidebar = () => {
   // const [Username, setUsername] = useState("");
   // const [progress, setProgress] = useState(0);
   // const [image, setImage] = useState(null);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   // const [User, setUser] = useState(null);
   // const [Groups, setGroups] = useState([]);
+  const [Name, setName] = useState("");
+
 
 
   // useEffect(() => {
@@ -52,9 +54,28 @@ export const Sidebar = () => {
   //   };
   // }, []);
 
-  const ClickAdd = () => {
-    setOpen(true);
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const file = ref(storage, `/images/${image.name}`);
+  //   const storageRef = ref(storage, file);
+  //   await uploadBytes(storageRef, file).then((snapshot) => {
+  //     getDownloadURL(snapshot.ref).then((url) =>
+  //     db.collection("groups").add({
+  //                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //                 id:Math.random(),
+  //                     image: url,
+                     
+                      
+  //                   })
+  //     );
+  //   });
+  //   setName("");
+  // };
+
+  // const ClickAdd = () => {
+  //   setOpen(true);
+  // };
 
   // handlechange event for uploading image
 
@@ -67,7 +88,9 @@ export const Sidebar = () => {
 
   // handle upload event
 
-  // const handleUpload = () => {
+  // const handleSubmit = (e) => {
+  //     e.preventDefault();
+
   //   if (!image) {
   //     alert("Please upload an image first!");
   //   }
@@ -90,7 +113,8 @@ export const Sidebar = () => {
   //               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   //           id:Math.random(),
   //               image: url,
-  //               username: Username,
+  //               name : Name,
+               
                 
   //             });
   //             setProgress(0);
@@ -139,7 +163,10 @@ export const Sidebar = () => {
   return (
     <div className="sidebar_container">
     {/* modal will be used here after the problem gets solved */}
-     <Modal open={open} onClose={() => setOpen(false)}>
+     <Modal
+      // open={open} 
+      // onClose={() => setOpen(false)}
+      >
          <div className="image_upload">
          <div className="add_group_modal">
             <progress
@@ -152,8 +179,8 @@ export const Sidebar = () => {
               className="image_caption"
               type="text"
               placeholder="Enter a caption"
-              // value={Username}
-              // onChange={(e) => setUsername(e.target.value)}
+              value={Name}
+              onChange={(e) => setName(e.target.value)}
             />
             <input
               className="choose_file"
@@ -161,7 +188,7 @@ export const Sidebar = () => {
               // onChange={handleChange}
             />
             <button className="imageupload_button"
-            //  onClick={handleUpload}
+            //  onClick={(e)=>handleSubmit(e)}
              >
               Upload
             </button>
@@ -184,9 +211,7 @@ export const Sidebar = () => {
             }}
             className="chats"
           >
-            {/* <Chat  image={chat.image} username={chat.username} key={chat.id}>
-                        <Link to={`/chatpage/${chat.id}`}>{chat.username}</Link>
-                    </Chat> */}
+      
             <Link
               className="chat_btn"
               to={`/chatpage/${chat.id}/${chat.username}`}
@@ -203,7 +228,9 @@ export const Sidebar = () => {
           </div>
         ))}
       </div>
-      <button onClick={ClickAdd} className="add_group">
+      <button
+      //  onClick={ClickAdd}
+        className="add_group">
         ➕
       </button>
       <div class="bubble x1"></div>
