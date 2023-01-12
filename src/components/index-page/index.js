@@ -2,7 +2,7 @@
 import React , { useState,useEffect }from 'react'
 import {Sidebar} from '../sidebar';
 import { auth } from "../../firebase";
-import { useNavigate } from 'react-router-dom';
+
 import { Login } from '../login';
 
 
@@ -10,7 +10,7 @@ import { Login } from '../login';
 
 export const IndexPage = () => {
     const [User, setUser] = useState(null);
-    const history = useNavigate()
+   
 
     useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
