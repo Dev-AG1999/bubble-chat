@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Avatar } from "@mui/material";
+import { Avatar, Modal } from "@mui/material";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { Link, useParams } from "react-router-dom";
 import { chats } from "./chats";
 import { ChatBubble } from "./chat-bubble";
 import firebase from "firebase/compat/app";
-
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 // import {
 //   collection,
 //   addDoc,
@@ -21,6 +21,7 @@ export const Chatroom = () => {
   const [messages, setMessages] = useState([]);
   const [User, setUser] = useState(null);
   const [Message, setMessage] = useState("");
+const [open,setOpen]= useState(false)
 
   const {username}  = useParams();
   const { id } = useParams();
@@ -80,8 +81,23 @@ export const Chatroom = () => {
     setMessage("");
   };
 
+  const clearChat = (e) => {
+    e.preventDefault();
+    Message ?(
+    db.collection("chat-rooms").doc(id).collection("messages").get().then((querySnapshot) => {
+      Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
+    })):alert("No Message To Delete")
+  };
+
+
   return (
     <div className="chatroom_wrapper">
+      <Modal onClose={()=>setOpen(false)} open={open}>
+        <div className="chat_options">
+        
+<button onClick={(e)=>clearChat(e)}>Clear Chat</button>
+        </div>
+      </Modal>
       <div className="chat_header">
         <div
           className="user_name_avatar"
@@ -97,6 +113,7 @@ export const Chatroom = () => {
           <Avatar src=""></Avatar>
           <h3>{username}</h3>
         </div>
+        <MoreVertIcon className="icon" onClick={()=>setOpen(true)} style={{color:"white"}}></MoreVertIcon>
         <div>
           <Link
             style={{

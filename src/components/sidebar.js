@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Navbar } from "./Navbar";
 import "../../src/style.css";
 import { Link } from "react-router-dom";
@@ -17,6 +17,9 @@ export const Sidebar = () => {
   // const [User, setUser] = useState(null);
   // const [Groups, setGroups] = useState([]);
   const [Name, setName] = useState("");
+  const[open,setOpen]=useState(false);
+  const [value,setValue]= useState("");
+  const [filterData,setFilterData]=useState([])
 
 
 
@@ -160,6 +163,22 @@ export const Sidebar = () => {
 //         </div>
 //       </Modal>
 
+// search
+
+useEffect(() => {
+  const delayDebounce = setTimeout(() => {
+    if (value.length > 1) {
+      const filterData = chats.filter((contact) => {
+        return contact.username.toLowerCase().includes(value.toLowerCase());
+      });
+      console.log("filterDta", filterData);
+      setFilterData(filterData);
+    }
+  }, 800);
+
+  return () => clearTimeout(delayDebounce);
+}, [value]);
+
   return (
     <div className="sidebar_container">
     {/* modal will be used here after the problem gets solved */}
@@ -195,10 +214,17 @@ export const Sidebar = () => {
           </div>
         </div>
       </Modal>
-      <div className="navbar">
-        <Navbar />
-      </div>
 
+      <Modal open={open} onClose={()=>setOpen(false)}>
+        <div className='search_input'>
+          <input onChange={(e)=>setValue(e.target.value)} value={value} placeholder="Search Contact" type="text"/>
+    
+        </div>
+      </Modal>
+      <div className="navbar">
+        <Navbar onClick={()=>setOpen(true)} />
+      </div>
+{value.length === 0 ?(
       <div className="Msglist">
         {chats.map((chat) => (
           <div
@@ -227,7 +253,42 @@ export const Sidebar = () => {
             </Link>
           </div>
         ))}
-      </div>
+
+
+      </div>):(
+      <div className="Msglist">
+      {filterData.map((chat) => (
+          <div
+            key={chat.id}
+            style={{
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+            }}
+            className="chats"
+          >
+      
+            <Link
+              className="chat_btn"
+              to={`/chatpage/${chat.id}/${chat.username}`}
+            >
+              <div className="chat">
+                <div className="sender_image">
+                  <Avatar src={chat.image} alt=""></Avatar>
+                </div>
+                <div className="msg_overview">
+                  <span>{chat.username}</span>
+                </div>
+              </div>
+            </Link>
+          </div>
+        ))}
+        </div>)}
+
+
+
+
       <button
       //  onClick={ClickAdd}
         className="add_group">
