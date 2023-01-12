@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { chats } from "./chats";
 import { Avatar } from "@mui/material";
 import { Modal } from "@material-ui/core";
-// import { auth, db, storage } from "../firebase";
+// import { auth } from "../firebase";
 // import firebase from "firebase/compat/app";
 // import { ref, getDownloadURL ,addDoc,uploadBytesResumable} from "firebase/storage";
 
