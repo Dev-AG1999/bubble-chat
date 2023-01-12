@@ -24,10 +24,12 @@ export const Chatroom = () => {
 const [open,setOpen]= useState(false)
 
   const {username}  = useParams();
-  const { id } = useParams();
+  const { id,image } = useParams();
+
 
   chats.filter((x) => x.username === { username} );
   chats.filter((x) => x.id === { id });
+  chats.filter((x)=>x.image==={image})
 
 
   // use effect listener for fetching comments
@@ -110,7 +112,7 @@ const [open,setOpen]= useState(false)
           }}
         >
         
-          <Avatar src=""></Avatar>
+          <Avatar src={image}></Avatar>
           <h3>{username}</h3>
         </div>
         <MoreVertIcon className="icon" onClick={()=>setOpen(true)} style={{color:"white"}}></MoreVertIcon>
