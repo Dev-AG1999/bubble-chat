@@ -85,7 +85,7 @@ const [open,setOpen]= useState(false)
 
   const clearChat = (e) => {
     e.preventDefault();
-    Message ?(
+    messages ?(
     db.collection("chat-rooms").doc(id).collection("messages").get().then((querySnapshot) => {
       Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
     })):alert("No Message To Delete")
