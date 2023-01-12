@@ -3,13 +3,17 @@ import { Avatar } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import "../../src/style.css";
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
 
 
 export const Navbar=({onClick})=> {
   const history = useNavigate();
  const BackToLogin = ()=>{
+  auth.signOut()
   history("/login")
  }
+
+
 
 //  useEffect(() => {
 //   const delayDebounce = setTimeout(() => {
@@ -35,7 +39,7 @@ export const Navbar=({onClick})=> {
       </Modal> */}
    <div className='app_logo'>
    <h2> BubblyChat</h2>
-   <button onClick={BackToLogin} className='backBtn'>◀ Back</button>
+   <button onClick={BackToLogin} className='backBtn'>Log Out</button>
    </div>
 <div className='nav_items'>
 <div className='profile_image'>
