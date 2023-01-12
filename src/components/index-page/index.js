@@ -3,6 +3,7 @@ import React , { useState,useEffect }from 'react'
 import {Sidebar} from '../sidebar';
 import { auth } from "../../firebase";
 import { useNavigate } from 'react-router-dom';
+import { Login } from '../login';
 
 
 
@@ -36,7 +37,7 @@ export const IndexPage = () => {
     <Sidebar/>
 
  
-      </div>):(history("/login"))}
+      </div>):(<Login/>)}
     </div>
   )
 }
