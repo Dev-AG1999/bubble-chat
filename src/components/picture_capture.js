@@ -36,7 +36,7 @@ export const OpenCamera= () => {
 
         {picture ==='' ? (
              <>
-                 
+                          <button onClick={handleClick}>Switch camera</button>
           <Webcam style={{height:"90%",width:"100%"}}
             audio={false}
             ref={webcamRef}
@@ -46,7 +46,7 @@ export const OpenCamera= () => {
                 facingMode
               }}
           />
-            <button onClick={handleClick}>Switch camera</button>
+   
      </>  ) : (
           <img alt='' style={{height:"100%",width:"100%",objectFit:"cover"}} src={picture} />
         )}
