@@ -6,6 +6,9 @@ import { chats } from "./chats";
 import { ChatBubble } from "./chat-bubble";
 import firebase from "firebase/compat/app";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import { useNavigate } from "react-router-dom";
+
 // import {
 //   collection,
 //   addDoc,
@@ -22,10 +25,14 @@ export const Chatroom = () => {
   const [User, setUser] = useState(null);
   const [Message, setMessage] = useState("");
 const [open,setOpen]= useState(false)
-
   const {username}  = useParams();
   const { id,image } = useParams();
 
+  const history = useNavigate();
+
+  const cameraClick =()=>{
+    history("/camera")
+  }
 
   chats.filter((x) => x.username === { username} );
   chats.filter((x) => x.id === { id });
@@ -70,7 +77,7 @@ const [open,setOpen]= useState(false)
     return () => {
       unsubscribe();
     };
-  }, [isMe, User]);
+  }, [isMe, User,username]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -89,6 +96,7 @@ const [open,setOpen]= useState(false)
     db.collection("chat-rooms").doc(id).collection("messages").get().then((querySnapshot) => {
       Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
     })):alert("No Message To Delete")
+    setOpen(false)
   };
 
 
@@ -103,13 +111,7 @@ const [open,setOpen]= useState(false)
       <div className="chat_header">
         <div
           className="user_name_avatar"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            color: "white",
-            width: "80%",
-          }}
+      
         >
         
           <Avatar src={image}></Avatar>
@@ -141,7 +143,7 @@ const [open,setOpen]= useState(false)
               color: "white",
               width: "70%",
               padding: "2px 10px",
-              alignSelf: isMe ? "end" : "start",
+              alignSelf: User? "end" : "start",
               margin: "5px 0",
               borderRadius: "12px",
             }}
@@ -156,6 +158,7 @@ const [open,setOpen]= useState(false)
           type="text"
           placeholder="Write a message"
         />
+        <CameraAltIcon style={{cursor:"pointer"}} onClick={cameraClick} className="camera"></CameraAltIcon>
         <button
           onClick={(e) => sendMessage(e)}
           className="submit"

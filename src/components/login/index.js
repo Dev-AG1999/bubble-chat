@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from "react";
-import "../login/style.css";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import Modal from "@mui/material/Modal";
+import "../../../src/style.css"
+
 
 export const Login = () => {
   const [email, setEmail] = useState("");
