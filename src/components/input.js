@@ -1,26 +1,29 @@
-import React, { useState } from 'react'
-import NearMeIcon from "@mui/icons-material/NearMe";
+import React from 'react'
+import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 
 const CameraInput = ({capture,retake}) => {
 
-    const[caption,setCaption]=useState("");
+    // const[caption,setCaption]=useState("");
   return (
-    <div className='msginput'>     <input
+    <div className='msginput' style={{justifyContent:"center"}}>  
+       {/* <input
     value={caption}
     onChange={(e) => setCaption(e.target.value)}
     type="text"
     placeholder="Write a caption..."
   
-  />
+  /> */}
 
   <button
     onClick={capture}
     className="submit"
     type="submit"
-    disabled={!caption}
+    style={{background:"transparent",
+cursor:"pointer"}}
+    // disabled={!caption}
   
   >
-    <NearMeIcon />
+    <PanoramaFishEyeIcon style={{fontSize:"50px",color:"white",fontWeight:"lighter"}} />
   </button></div>
   )
 }
