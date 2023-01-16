@@ -410,6 +410,12 @@
   padding: 10px;
 }
 
+.cameraBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 560px) {
   .sidebar_container {
     width: 100%;

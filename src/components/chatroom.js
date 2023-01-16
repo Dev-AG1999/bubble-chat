@@ -85,6 +85,7 @@ const [open,setOpen]= useState(false)
       id:id,
       text: Message,
       username: User,
+      image : image,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setMessage("");
