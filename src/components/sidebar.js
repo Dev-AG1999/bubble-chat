@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import "../../src/style.css";
 import { Link } from "react-router-dom";
@@ -17,11 +17,9 @@ export const Sidebar = () => {
   // const [User, setUser] = useState(null);
   // const [Groups, setGroups] = useState([]);
   const [Name, setName] = useState("");
-  const[open,setOpen]=useState(false);
-  const [value,setValue]= useState("");
-  const [filterData,setFilterData]=useState([])
-
-
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+  const [filterData, setFilterData] = useState([]);
 
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -40,7 +38,6 @@ export const Sidebar = () => {
   //     unsubscribe();
   //   };
   // }, [User, Username]);
-
 
   // useEffect(() => {
   //   let unsub;
@@ -68,8 +65,7 @@ export const Sidebar = () => {
   //                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   //                 id:Math.random(),
   //                     image: url,
-                     
-                      
+
   //                   })
   //     );
   //   });
@@ -87,7 +83,6 @@ export const Sidebar = () => {
   //     setImage(e.target.files[0]);
   //   }
   // };
-
 
   // handle upload event
 
@@ -117,77 +112,75 @@ export const Sidebar = () => {
   //           id:Math.random(),
   //               image: url,
   //               name : Name,
-               
-                
+
   //             });
   //             setProgress(0);
   //             setUsername("");
   //             setImage(null);
-              
+
   //           });
   //       } });
-    
+
   // };
 
-
   // modal for adding group name and image
-//   <Modal open={open} onClose={() => setOpen(false)}>
-//         <div className="image_upload">
-//           <div className="add_group_modal">
-//             <progress
-//               className="imageuplolad_progress"
-//               value={progress}
-//               max="100"
-//             />
+  //   <Modal open={open} onClose={() => setOpen(false)}>
+  //         <div className="image_upload">
+  //           <div className="add_group_modal">
+  //             <progress
+  //               className="imageuplolad_progress"
+  //               value={progress}
+  //               max="100"
+  //             />
 
-//             <input
-//               className="image_caption"
-//               type="text"
-//               placeholder="Enter a caption"
-//               value={Username}
-//               onChange={(e) => setUsername(e.target.value)}
-//             />
-//             <input
-//               className="choose_file"
-//               type="file"
-//               onChange={handleChange}
-//             />
-//             <button className="imageupload_button" onClick={handleUpload}>
-//               Upload
-//             </button>
-//           </div>
+  //             <input
+  //               className="image_caption"
+  //               type="text"
+  //               placeholder="Enter a caption"
+  //               value={Username}
+  //               onChange={(e) => setUsername(e.target.value)}
+  //             />
+  //             <input
+  //               className="choose_file"
+  //               type="file"
+  //               onChange={handleChange}
+  //             />
+  //             <button className="imageupload_button" onClick={handleUpload}>
+  //               Upload
+  //             </button>
+  //           </div>
 
-//           {/* <button className="choose_button" onClick={() => setOpen(true)}>
-// Choose from your computer
-// </button> */}
-//         </div>
-//       </Modal>
+  //           {/* <button className="choose_button" onClick={() => setOpen(true)}>
+  // Choose from your computer
+  // </button> */}
+  //         </div>
+  //       </Modal>
 
-// search
+  // search
 
-useEffect(() => {
-  const delayDebounce = setTimeout(() => {
-    if (value.length > 1) {
-      const filterData = chats.filter((contact) => {
-        return contact.username.toLowerCase().includes(value.toLowerCase());
-      });
-      console.log("filterDta", filterData);
-      setFilterData(filterData);
-    }
-  }, 800);
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (value.length > 1) {
+        const filterData = chats.filter((contact) => {
+          return contact.username.toLowerCase().includes(value.toLowerCase());
+        });
+        console.log("filterDta", filterData);
+        setFilterData(filterData);
+      }
+    }, 800);
 
-  return () => clearTimeout(delayDebounce);
-}, [value]);
+    return () => clearTimeout(delayDebounce);
+  }, [value]);
 
   return (
     <div className="sidebar_container">
-    {/* modal will be used here after the problem gets solved */}
-     <Modal
-      // open={open} 
+      {/* modal will be used here after the problem gets solved */}
+      <Modal
+      // open={open}
       // onClose={() => setOpen(false)}
       >
-         <div className="image_upload">
-         <div className="add_group_modal">
+        <div className="image_upload">
+          <div className="add_group_modal">
             <progress
               className="imageuplolad_progress"
               // value={progress}
@@ -206,92 +199,93 @@ useEffect(() => {
               type="file"
               // onChange={handleChange}
             />
-            <button className="imageupload_button"
-            //  onClick={(e)=>handleSubmit(e)}
-             >
+            <button
+              className="imageupload_button"
+              //  onClick={(e)=>handleSubmit(e)}
+            >
               Upload
             </button>
           </div>
         </div>
       </Modal>
 
-      <Modal open={open} onClose={()=>setOpen(false)}>
-        <div className='search_input'>
-          <input onChange={(e)=>setValue(e.target.value)} value={value} placeholder="Search Contact" type="text"/>
-    
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div className="search_input">
+          <input
+            onChange={(e) => setValue(e.target.value)}
+            value={value}
+            placeholder="Search Contact"
+            type="text"
+          />
         </div>
       </Modal>
       <div className="navbar">
-        <Navbar onClick={()=>setOpen(true)} />
+        <Navbar onClick={() => setOpen(true)} />
       </div>
-{value.length === 0 ?(
-      <div className="Msglist">
-        {chats.map((chat) => (
-          <div
-            key={chat.id}
-            style={{
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              display: "flex",
-            }}
-            className="chats"
-          >
-      
-            <Link
-              className="chat_btn"
-              to={`/chatpage/${chat.id}/${chat.username}`}
+      {value.length === 0 ? (
+        <div className="Msglist">
+          {chats.map((chat) => (
+            <div
+              key={chat.id}
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+              }}
+              className="chats"
             >
-              <div className="chat">
-                <div className="sender_image">
-                  <Avatar src={chat.image} alt=""></Avatar>
+              <Link
+                className="chat_btn"
+                to={`/chatpage/${chat.id}/${chat.username}`}
+              >
+                <div className="chat">
+                  <div className="sender_image">
+                    <Avatar src={chat.image} alt=""></Avatar>
+                  </div>
+                  <div className="msg_overview">
+                    <span>{chat.username}</span>
+                  </div>
                 </div>
-                <div className="msg_overview">
-                  <span>{chat.username}</span>
-                </div>
-              </div>
-            </Link>
-          </div>
-        ))}
-
-
-      </div>):(
-      <div className="Msglist">
-      {filterData.map((chat) => (
-          <div
-            key={chat.id}
-            style={{
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              display: "flex",
-            }}
-            className="chats"
-          >
-      
-            <Link
-              className="chat_btn"
-              to={`/chatpage/${chat.id}/${chat.username}`}
+              </Link>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="Msglist">
+          {filterData.map((chat) => (
+            <div
+              key={chat.id}
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+              }}
+              className="chats"
             >
-              <div className="chat">
-                <div className="sender_image">
-                  <Avatar src={chat.image} alt=""></Avatar>
+              <Link
+                className="chat_btn"
+                to={`/chatpage/${chat.id}/${chat.username}`}
+              >
+                <div className="chat">
+                  <div className="sender_image">
+                    <Avatar src={chat.image} alt=""></Avatar>
+                  </div>
+                  <div className="msg_overview">
+                    <span>{chat.username}</span>
+                  </div>
                 </div>
-                <div className="msg_overview">
-                  <span>{chat.username}</span>
-                </div>
-              </div>
-            </Link>
-          </div>
-        ))}
-        </div>)}
-
-
-
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
 
       <button
-      //  onClick={ClickAdd}
-        className="add_group">
+        //  onClick={ClickAdd}
+        className="add_group"
+      >
         ➕
       </button>
       <div class="bubble x1"></div>

@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 import { auth } from "../firebase";
 
 const AuthContext = React.createContext();
 
 const AuthProvider = (props) => {
-    const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState(null);
 
-    const login = async () => {
-        const user = await auth();
+  const login = async () => {
+    const user = await auth();
 
-        if (!user) {
-            // TODO: Handle failed login
-        }
+    if (!user) {
+      // TODO: Handle failed login
+    }
 
-        setUser(user);
-    };
+    setUser(user);
+  };
 
-    const value = { user, login };
+  const value = { user, login };
 
-    return <AuthContext.Provider value={value} {...props} />;
+  return <AuthContext.Provider value={value} {...props} />;
 };
 
 export { AuthContext, AuthProvider };
