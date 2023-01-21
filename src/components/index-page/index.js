@@ -3,7 +3,7 @@ import { Sidebar } from "../sidebar";
 import { auth } from "../../firebase";
 
 import { Login } from "../login";
-// import { Chatroom } from "../chatroom";
+
 
 export const IndexPage = () => {
   const [User, setUser] = useState(null);
@@ -27,7 +27,7 @@ export const IndexPage = () => {
   }, [User]);
   return (
     <div className="home">
-      {User ? (
+      {User  ? (
         <div className="container" style={{ display: "flex", width: "100%" }}>
           <Sidebar />
   

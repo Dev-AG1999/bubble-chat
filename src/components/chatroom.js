@@ -249,7 +249,7 @@ export const Chatroom = () => {
               backgroundColor: "#6600ffd8",
               color: "white",
               padding: "2px 10px",
-              alignSelf: User ? "end" : "start",
+              alignSelf: User===username ? "end" : "start",
               margin: "5px 0",
               borderRadius: "12px",
               height:"400px"
