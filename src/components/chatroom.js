@@ -116,12 +116,13 @@ export const Chatroom = () => {
       });
     setMessage("");
     setPicture("");
+    setOpenCamera(false)
     console.log("pc", picture);
   };
 
   const clearChat = (e) => {
     e.preventDefault();
-    messages
+    messages.length!==0
       ? db
           .collection("chat-rooms")
           .doc(id)
@@ -254,7 +255,7 @@ export const Chatroom = () => {
               alignSelf: User===Username? "end" : "start",
               margin: "5px 0",
               borderRadius: "12px",
-              height:"400px"
+          
             }}
           />
         ))}
