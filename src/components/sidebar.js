@@ -266,7 +266,8 @@ export const Sidebar = () => {
             >
               <Link
                 className="chat_btn"
-                to={`/chatpage/${chat.id}/${chat.username}`}
+                to={`/chatpage/${chat.id}/${chat.username}` `window.location.replace("/chatpage")`}
+              
               >
                 <div className="chat">
                   <div className="sender_image">

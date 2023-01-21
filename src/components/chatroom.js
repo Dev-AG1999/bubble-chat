@@ -248,11 +248,11 @@ export const Chatroom = () => {
             style={{
               backgroundColor: "#6600ffd8",
               color: "white",
-              width: "70%",
               padding: "2px 10px",
               alignSelf: User ? "end" : "start",
               margin: "5px 0",
               borderRadius: "12px",
+              height:"400px"
             }}
           />
         ))}
