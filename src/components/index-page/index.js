@@ -3,7 +3,7 @@ import { Sidebar } from "../sidebar";
 import { auth } from "../../firebase";
 
 import { Login } from "../login";
-import { Chatroom } from "../chatroom";
+// import { Chatroom } from "../chatroom";
 
 export const IndexPage = () => {
   const [User, setUser] = useState(null);
