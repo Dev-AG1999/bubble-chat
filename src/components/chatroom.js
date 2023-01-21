@@ -165,6 +165,7 @@ export const Chatroom = () => {
                   style={{ height: "90%", width: "100%" }}
                   audio={false}
                   ref={webcamRef}
+                  mirrored={true}
                   screenshotFormat="image/jpeg"
                   videoConstraints={{
                     ...videoConstraints,
