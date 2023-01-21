@@ -30,6 +30,7 @@ export const Chatroom = () => {
   const [isMe, setIsme] = useState(false);
   const [messages, setMessages] = useState([]);
   const [User, setUser] = useState(null);
+  const [Username, setUsername] = useState("");
   const [Message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
   const { username } = useParams();
@@ -88,6 +89,7 @@ export const Chatroom = () => {
 
         setIsme(true);
         setUser(authUser.displayName);
+        setUsername(User)
       } else {
         // the user has logged out
 
@@ -98,7 +100,7 @@ export const Chatroom = () => {
     return () => {
       unsubscribe();
     };
-  }, [isMe, User, username]);
+  }, [isMe, User, Username]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -249,7 +251,7 @@ export const Chatroom = () => {
               backgroundColor: "#6600ffd8",
               color: "white",
               padding: "2px 10px",
-              alignSelf: User===username ? "end" : "start",
+              alignSelf: User===Username? "end" : "start",
               margin: "5px 0",
               borderRadius: "12px",
               height:"400px"
