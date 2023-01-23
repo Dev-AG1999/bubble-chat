@@ -24,6 +24,7 @@ const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
 const videoConstraints = {
   facingMode: FACING_MODE_USER,
+  mirrored:"false"
 };
 
 export const Chatroom = () => {
@@ -56,7 +57,7 @@ export const Chatroom = () => {
   const handleClick = useCallback(() => {
     setFacingMode((prevState) =>
       prevState === FACING_MODE_USER
-        ? FACING_MODE_ENVIRONMENT
+        ? FACING_MODE_ENVIRONMENT  
         : FACING_MODE_USER
     );
   }, []);
@@ -168,7 +169,7 @@ export const Chatroom = () => {
                   style={{ height: "90%", width: "100%" }}
                   audio={false}
                   ref={webcamRef}
-                  mirrored={true}
+                   mirrored={facingMode===FACING_MODE_USER}
                   screenshotFormat="image/jpeg"
                   videoConstraints={{
                     ...videoConstraints,
