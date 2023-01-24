@@ -3,6 +3,7 @@ import { Sidebar } from "../sidebar";
 import { auth } from "../../firebase";
 
 import { Login } from "../login";
+import '../../../src/style.css'
 
 
 export const IndexPage = () => {
@@ -28,7 +29,7 @@ export const IndexPage = () => {
   return (
     <div className="home">
       {User  ? (
-        <div className="container" style={{ display: "flex", width: "100%" }}>
+        <div className="container" >
           <Sidebar />
   
         </div>

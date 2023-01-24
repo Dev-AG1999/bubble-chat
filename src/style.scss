@@ -106,7 +106,20 @@ position: relative;
 }
 .home{
   width: 100%;
+  display: flex;
+  .container{
+    display: flex;
+    width:50%;
+    max-width: 450px;
+    margin:auto;
+    @media screen and (max-width:640px){
+      width: 100%;
+    }
+  }
+
 }
+
+
 .sidebar_container{
   height: 100vh;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #8331feac, #23d5ab);
@@ -118,7 +131,23 @@ position: relative;
   overflow: hidden;;
   position: relative;
 }
+.search_input{
+  position: absolute;
+  width:300px;
 
+  top:10px;
+  left: 50%;
+  transform: translate(-55%,50%);
+
+ input{
+background-color: white;
+border-radius: 10px;
+outline: none;
+border:none;
+padding: 10px;
+width: 100%;
+  }
+}
 
 .navbar{
   width: 100%;
@@ -252,7 +281,9 @@ transition: all 0.3s ease-in-out;
 .chatroom_wrapper{
   height: 100vh;
   background: "rgb(255, 255, 255)";
-  width: 100%;
+  width: 50%;
+  max-width: 500px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   box-shadow:
@@ -389,12 +420,12 @@ margin-right: 2px;
 
 }
 
-@media screen and(max-width:560px){
+@media screen and(max-width:640px){
   .sidebar_container{
     width: 100%;
 }
 .chatroom_wrapper{
- height: auto;
+width: 100%;
 }
 
 }
