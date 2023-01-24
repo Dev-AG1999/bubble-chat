@@ -256,6 +256,7 @@ export const Chatroom = () => {
               alignSelf: User===Username? "end" : "start",
               margin: "5px 0",
               borderRadius: "12px",
+              width:"50%"
           
             }}
           />
