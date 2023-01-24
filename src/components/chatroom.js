@@ -32,6 +32,7 @@ export const Chatroom = () => {
   const [messages, setMessages] = useState([]);
   const [User, setUser] = useState(null);
   const [Username, setUsername] = useState("");
+  
   const [Message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
   const { username } = useParams();
@@ -194,6 +195,7 @@ export const Chatroom = () => {
             >
               {picture !== "" ? (
                 <>
+                <input type="text" value={Message} onChange={(e)=>setMessage(e.target.value)}></input>
                   <button onClick={retakeImg} className="btn btn-primary">
                     Retake
                   </button>
