@@ -1,8 +1,11 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState ,useContext} from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
+import { auth,db } from "../../firebase";
 import Modal from "@mui/material/Modal";
-import "../../../src/style.css"
+import "../../../src/style.css";
+import firebase from "firebase/compat/app";
+import { IndexPage } from "../index-page";
+import { AuthContext } from "../../context/AuthContext";
 
 
 export const Login = () => {
@@ -12,16 +15,34 @@ export const Login = () => {
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [err, setErr] = useState(false);
+  const [users, setUsers] = useState([]);
+  const { currentUser } = useContext(AuthContext);
+  // const [newUser,setNewUser]=useState("")
+
 
   const history = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        // the user has loggeed in
-        console.log(authUser.displayName);
-        setUser(authUser.displayName);
-      } else {
+    let unsubscribe = auth.onAuthStateChanged((authUser) => {
+     
+      if (authUser) { 
+
+        
+          unsubscribe = db
+          .collection("users")
+          .orderBy("timestamp", "desc")
+          .onSnapshot((snapshot) => {
+            setUsers(snapshot.docs.map((doc) => doc.data()));
+          });
+              // the user has loggeed in
+              console.log(authUser.displayName);
+          // setNewUser(newUser.displayName)
+              setUser(authUser.displayName);
+              // console.log("new",newUser)
+        
+   
+      } 
+      else {
         // the user has logged out
         setUser(null);
       }
@@ -29,13 +50,21 @@ export const Login = () => {
     return () => {
       unsubscribe();
     };
-  }, [user, username]);
+  
+   
+  }, [user, username,users]);
 
   // function for sign in button
   const SignIn =async (e) => {
     e.preventDefault();
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+  const res =    await auth.signInWithEmailAndPassword(email, password);
+db.collection("users").add({
+  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  id:res.user.uid,
+  name:res.user.displayName,
+  email:email,
+})
       history("/chatpage")
     } catch (err) {
       setErr(true);
@@ -43,9 +72,8 @@ export const Login = () => {
   };
 
   const handleClick = (e) => {
-  
     e.preventDefault();
-    auth
+  auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         return authUser.user.updateProfile({
@@ -54,9 +82,7 @@ export const Login = () => {
         });
       })
       .catch((error) => alert(error.message));
-    
     console.log("user", username);
- 
 setOpen(false)
   };
   // function for sign up button
@@ -65,8 +91,10 @@ setOpen(false)
   };
 
 
-  return (
-    <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100%",width:"100%"}} >
+  return (<>
+  {
+    currentUser?<IndexPage/>:(
+      <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100%",width:"100%"}} >
       <Modal style={{width:"100vw",height:"100vh",opacity:"1"}} open={open} onClose={() => setOpen(false)}>
 <div style={{height:"100vh",display:"flex",justifyContent:"center",alignItems:"center",width:"100%",background:"white"}}>
         <div className="login_wrapper">
@@ -160,5 +188,9 @@ setOpen(false)
         </div>
       </div>
     </div>
+    )
+  }
+  </>
+  
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef,useContext } from "react";
 import { Avatar, Modal } from "@mui/material";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { Link, useParams } from "react-router-dom";
@@ -9,6 +9,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Webcam from "react-webcam";
 import CameraInput from "./input";
+import { AuthContext } from "../context/AuthContext";
 
 // import {
 //   collection,
@@ -41,6 +42,9 @@ export const Chatroom = () => {
   // const [picture, setPicture] = useState('');
 
   const [picture, setPicture] = useState("");
+  const { currentUser } = useContext(AuthContext);
+
+  console.log("cuser",currentUser);
 
   const webcamRef = useRef(null);
   const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
@@ -195,17 +199,29 @@ export const Chatroom = () => {
             >
               {picture !== "" ? (
                 <>
-                <input type="text" value={Message} onChange={(e)=>setMessage(e.target.value)}></input>
-                  <button onClick={retakeImg} className="btn btn-primary">
-                    Retake
+                 <div className="msginput">
+        <input
+          value={Message}
+          onChange={(e) => setMessage(e.target.value)}
+          type="text"
+          placeholder="Write a message"
+        />
+      
+      <button
+                    onClick={(e) => sendMessage(e)}
+                    className="submit"
+                  >
+                     <NearMeIcon />
                   </button>
 
                   <button
-                    onClick={(e) => sendMessage(e)}
-                    className="btn btn-primary"
+                 onClick={retakeImg}
+                 className="submit"
                   >
-                    submit
+                   Retake
                   </button>
+      </div>
+         
                 </>
               ) : (
                 <CameraInput
@@ -255,9 +271,9 @@ export const Chatroom = () => {
               backgroundColor: "#6600ffd8",
               color: "white",
               padding: "2px 10px",
-              alignSelf: User===Username? "end" : "start",
+              alignSelf: currentUser.displayName === msg.username ? "end" : "start",
               margin: "5px 0",
-              borderRadius: "12px",
+              borderRadius: currentUser.displayName === msg.username ? "0 12px 12px 12px" : "12px 0 12px 12px",
               width:"50%"
           
             }}

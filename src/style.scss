@@ -412,14 +412,15 @@ margin-right: 2px;
   background:white;
   border-radius: 100%;
   padding: 10px;
+  height: 100%;
+  margin: 0 2px;
+  cursor: pointer;
 }
 .cameraBtn{
   background: transparent;
   border: none;
   cursor: pointer;
-
 }
-
 @media screen and(max-width:640px){
   .sidebar_container{
     width: 100%;

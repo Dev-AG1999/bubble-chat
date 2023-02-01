@@ -1,13 +1,15 @@
 import "./App.css";
 import { Login } from "./components/login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import React,{useContext} from "react";
 import { IndexPage } from "./components/index-page";
 import { Chatroom } from "./components/chatroom";
-import { Sidebar } from "./components/sidebar";
+import { AuthContext } from "./context/AuthContext";
+
 // import { OpenCamera } from './components/picture_capture';
 
 function App() {
+  const {currentUser}=useContext(AuthContext)
   return (
     <div
       className="app_wrapper"
@@ -19,9 +21,12 @@ function App() {
       }}
     >
       <Router>
-        <Routes>
-          <Route index element={<Sidebar />}></Route>
-        </Routes>
+        {currentUser? <Routes>
+          <Route index element={<IndexPage />}></Route>
+        </Routes>: <Routes>
+          <Route index element={<Login/>}></Route>
+        </Routes>}
+       
         <Routes>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
