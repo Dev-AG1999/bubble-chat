@@ -5,6 +5,9 @@ import React,{useContext} from "react";
 import { IndexPage } from "./components/index-page";
 import { Chatroom } from "./components/chatroom";
 import { AuthContext } from "./context/AuthContext";
+import { Contact } from "./components/contact";
+import ResponsiveAppBar from "./components/profile";
+
 
 // import { OpenCamera } from './components/picture_capture';
 
@@ -23,7 +26,10 @@ function App() {
       <Router>
         {currentUser? <Routes>
           <Route index element={<IndexPage />}></Route>
-        </Routes>: <Routes>
+         
+        </Routes>
+        
+        : <Routes>
           <Route index element={<Login/>}></Route>
         </Routes>}
        
@@ -35,6 +41,12 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/chatpage/:id/:username" element={<Chatroom />}></Route>
+        </Routes>
+        <Routes>
+          <Route path="/contact" element={<Contact/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path="/profile" element={<ResponsiveAppBar/>}></Route>
         </Routes>
         {/* <Routes>   <Route path="/camera" element={<OpenCamera/>}></Route></Routes> */}
       </Router>

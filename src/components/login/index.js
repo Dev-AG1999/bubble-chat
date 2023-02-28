@@ -38,6 +38,7 @@ export const Login = () => {
               console.log(authUser.displayName);
           // setNewUser(newUser.displayName)
               setUser(authUser.displayName);
+              localStorage.setItem("users",authUser.displayName)
               // console.log("new",newUser)
         
    

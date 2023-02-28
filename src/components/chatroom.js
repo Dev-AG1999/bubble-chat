@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback, useRef,useContext } from "reac
 import { Avatar, Modal } from "@mui/material";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { Link, useParams } from "react-router-dom";
-import { chats } from "./chats";
 import { ChatBubble } from "./chat-bubble";
 import firebase from "firebase/compat/app";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -10,6 +9,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Webcam from "react-webcam";
 import CameraInput from "./input";
 import { AuthContext } from "../context/AuthContext";
+
 
 // import {
 //   collection,
@@ -67,8 +67,8 @@ export const Chatroom = () => {
     );
   }, []);
 
-  chats.filter((x) => x.username === { username });
-  chats.filter((x) => x.id === { id });
+  // chats.filter((x) => x.username === { username });
+  // chats.filter((x) => x.id === { id });
 
   // use effect listener for fetching comments
   useEffect(() => {

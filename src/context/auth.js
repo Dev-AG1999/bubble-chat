@@ -1,7 +1,7 @@
 import React from "react";
 import { auth } from "../firebase";
 
-const AuthContext = React.createContext();
+const Auth = React.createContext();
 
 const AuthProvider = (props) => {
   const [user, setUser] = React.useState(null);
@@ -21,4 +21,4 @@ const AuthProvider = (props) => {
   return <AuthContext.Provider value={value} {...props} />;
 };
 
-export { AuthContext, AuthProvider };
+export { Auth, AuthProvider };

@@ -3,13 +3,18 @@ import { Navbar } from "./Navbar";
 import "../../src/style.css";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import { Modal } from "@material-ui/core";
+import { Modal,Backdrop } from "@material-ui/core";
 import { db, storage } from "../firebase";
 import firebase from "firebase/compat/app";
 import { ref, uploadBytesResumable } from "firebase/storage";
 // import { AuthContext } from "../context/AuthContext";
+// import { useNavigate } from "react-router-dom";
+import { Contact } from "./contact";
+// import { remove } from "firebase/database";
+import {CircularProgress} from "@mui/material";
+// import { doc, getDoc } from "firebase/firestore";
 
-export const Sidebar = ({newUser}) => {
+export const Sidebar = ({ newUser }) => {
   const [Username, setUsername] = useState("");
   const [progress, setProgress] = useState(0);
   const [image, setImage] = useState(null);
@@ -21,6 +26,13 @@ export const Sidebar = ({newUser}) => {
   // const [chats, setChats] = useState([]);
   // const { currentUser } = useContext(AuthContext);
 
+  const [isClicked, setisClicked] = useState(false);
+  const [isContact, setisContact] = useState(false);
+  // const [isLoading, setisLoading] = useState(false);
+  const [openLoader, setOpenLoader] = useState(false);
+
+  // const history = useNavigate();
+
   useEffect(() => {
     let unsub;
     unsub = db
@@ -28,27 +40,46 @@ export const Sidebar = ({newUser}) => {
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
         setGroups(snapshot.docs.map((doc) => doc.data()));
+        setOpenLoader(true)
+        setTimeout(()=>{
+          setOpenLoader(false);
+        },1000)
+        return <Backdrop/>
       });
+    
+   
     return () => {
       unsub();
+   
     };
   }, []);
 
-  // useEffect(() => {
-  //   const getChats = () => {
-  //     const unsub = db
-  //       .collection("userchats")
-  //       .orderBy("timestamp", "desc")
-  //       .onSnapshot((snapshot) => {
-  //         setChats(snapshot.docs.map((doc) => doc.data()));
-  //       });
+  const clickContact = () => {
+    // history("/contact");
+    setisClicked(true);
+    setisContact(true);
 
-  //     return () => {
-  //       unsub();
-  //     };
-  //   };
-  //   currentUser.uid && getChats();
-  // }, [currentUser.uid]);
+    setTimeout(()=>{
+      setOpenLoader(false);
+    },1000);
+    setOpenLoader(true)
+    return <Backdrop/>
+   
+  
+  };
+
+  const clickChat = () => {
+    // history("/contact");
+    setisClicked(true);
+ 
+    setTimeout(()=>{
+      setOpenLoader(false);
+    },1000);
+    setOpenLoader(true)
+    return <Backdrop/>
+  };
+
+  //
 
   const ClickAdd = () => {
     setOpenform(true);
@@ -61,6 +92,14 @@ export const Sidebar = ({newUser}) => {
       setImage(e.target.files[0]);
     }
   };
+
+  // deletegrp chat
+  // const deleteGrpChat = () => {
+  //   const grpRef = ref(db, "groups");
+  //   remove(grpRef).then(() => {
+  //     console.log("location removed");
+  //   });
+  // };
 
   // handle upload event
 
@@ -203,99 +242,110 @@ export const Sidebar = ({newUser}) => {
             />
           </div>
         </Modal>
+        <Modal open={openLoader} onClose={()=>setOpenLoader(false)}>
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+       open={openLoader}
+       
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+        </Modal>
+       
+      
+        
         <div className="navbar">
-          <Navbar onClick={() => setOpen(true)} />
+          <Navbar
+            style={{ textDecoration: isClicked && "underline" }}
+            clicktoContact={() => clickContact()}
+            clicktoChat={() => clickChat()}
+            onClick={() => setOpen(true)}
+          />
         </div>
-      {value.length === 0 ? (
-          <div className="Msglist">
-            {Groups.map((chat) => (
-              <div
-                key={chat.id}
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  display: "flex",
-                }}
-                className="chats"
-              >
-                <Link
-                  className="chat_btn"
-                  to={`/chatpage/${chat.id}/${chat.name}`}
-                >
-                  <div className="chat">
-                    <div className="sender_image">
-                      <Avatar src={chat.image} alt=""></Avatar>
-                    </div>
-                    <div className="msg_overview">
-                      <span>{chat.name}</span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
-            {/* {chats.map((chat) => (
-              <div
-                key={chat.id}
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  display: "flex",
-                }}
-                className="chats"
-              >
-                <Link
-                  className="chat_btn"
-                  to={`/chatpage/${chat.id}/${chat.name}`}
-                >
-                  <div className="chat">
-                    <div className="sender_image">
-                      <Avatar src={chat.image} alt=""></Avatar>
-                    </div>
-                    <div className="msg_overview">
-                      <span>{chat.name}</span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            ))} */}
-          </div>
-        ) : (
-          <div className="Msglist">
-            {filterData.map((chat) => (
-              <div
-                key={chat.id}
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  display: "flex",
-                }}
-                className="chats"
-              >
-                <Link
-                  className="chat_btn"
-                  to={`/chatpage/${chat.id}/${chat.name}`}
-                >
-                  <div className="chat">
-                    <div className="sender_image">
-                      <Avatar src={chat.image} alt=""></Avatar>
-                    </div>
-                    <div className="msg_overview">
-                      <span>{chat.name}</span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-    
 
-        <button onClick={ClickAdd} className="add_group">
-          ➕
-        </button>
+        <>
+          {isContact ? (
+            <Contact />
+          ) : (
+            <>
+              {value.length === 0  ? (
+                <div className="Msglist">
+               
+              
+   
+                  {Groups.map((chat) => (
+                    <div
+                      key={chat.id}
+                      style={{
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        display: "flex",
+                      }}
+                      className="chats"
+                    >
+                      <Link
+                        className="chat_btn"
+                        to={`/chatpage/${chat.id}/${chat.name}`}
+                      >
+                        <div className="chat">
+                          <div className="msg_content"><div className="sender_image">
+                            <Avatar src={chat.image} alt=""></Avatar>
+                          </div>
+                          <div className="msg_overview">
+                            <span>{chat.name}</span>
+                          </div></div>
+                          
+                         
+                        </div>
+                      </Link>
+                      <button>🗑️</button>
+                    </div>
+                  ))}
+                 
+                </div>
+              ) : (
+                <div className="Msglist">
+                  {filterData.map((chat) => (
+                    <div
+                      key={chat.id}
+                      style={{
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        display: "flex",
+                      }}
+                      className="chats"
+                    >
+                      <Link
+                        className="chat_btn"
+                        to={`/chatpage/${chat.id}/${chat.name}`}
+                      >
+                             <div className="chat">
+                          <div className="msg_content"><div className="sender_image">
+                            <Avatar src={chat.image} alt=""></Avatar>
+                          </div>
+                          <div className="msg_overview">
+                            <span>{chat.name}</span>
+                          </div></div>
+                          
+                         
+                        </div>
+                      </Link>
+                      <button >🗑️</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </>
+
+     {
+      isContact? null :   <button onClick={ClickAdd} className="add_group">
+      ➕
+    </button>
+     }
         <div class="bubble x1"></div>
         <div class="bubble x2"></div>
         <div class="bubble x3"></div>

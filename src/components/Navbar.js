@@ -1,16 +1,29 @@
-import React from "react";
+import React,{useState} from "react";
 import { Avatar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import "../../src/style.css";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 
-export const Navbar = ({ onClick }) => {
+
+export const Navbar = ({ onClick,clicktoContact,clicktoChat,style }) => {
   const history = useNavigate();
   const BackToLogin = () => {
     auth.signOut();
     history("/login");
   };
+
+  const [value, setValue] = useState(0);
+
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
 
   //  useEffect(() => {
   //   const delayDebounce = setTimeout(() => {
@@ -42,14 +55,29 @@ export const Navbar = ({ onClick }) => {
       </div>
       <div className="nav_items">
         <div className="profile_image">
-          <a href="/profile">
-            {" "}
+          <a href="/profile" onClick={()=>history("/profile")}>
+            
             <Avatar alt="Aishwariya" />
           </a>
         </div>
-        <a className="nav_menu" href="/chatpage">
+        {/* <a className="nav_menu" href="/chatpage" onClick={clicktoChat}>
           Chat
         </a>
+        <a style={style} className="nav_menu" href="#" onClick={clicktoContact}>
+          Contacts
+        </a> */}
+
+<Box sx={{ borderBottom: 0, borderColor: 'white' }}>
+  <Tabs TabIndicatorProps={{
+    style: {
+      backgroundColor: "white"
+    }
+  }} value={value} onChange={handleChange} aria-label="basic tabs example">
+    <Tab  style={{color:"white"}} label="Groups" href="/chatpage" onClick={clicktoChat} />
+    <Tab  style={{color:"white"}} label="Contacts" href="#" onClick={clicktoContact}  />
+  
+  </Tabs>
+</Box>
         <button onClick={onClick} className="search">
           <SearchIcon></SearchIcon>
         </button>
