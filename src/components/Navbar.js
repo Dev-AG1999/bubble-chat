@@ -55,7 +55,7 @@ export const Navbar = ({ onClick,clicktoContact,clicktoChat,style }) => {
       </div>
       <div className="nav_items">
         <div className="profile_image">
-          <a href="/profile" onClick={()=>history("/profile")}>
+          <a href="./profile" onClick={()=>history("/profile")}>
             
             <Avatar alt="Aishwariya" />
           </a>
