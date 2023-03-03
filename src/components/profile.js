@@ -8,13 +8,13 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-
+import { Button } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 
 import AdbIcon from '@mui/icons-material/Adb';
 import { AuthContext } from '../context/AuthContext';
 
-// const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Abouts', 'Phone Number', 'Blog'];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -38,7 +38,7 @@ function ResponsiveAppBar() {
 //   };
 
   return (
-    <AppBar style={{background:"transparent",margin:"0 auto"}} position="static">
+    <AppBar style={{background: "linear-gradient(-45deg, #ee7752, #e73c7e, rgba(131, 49, 254, 0.6745098039), #23d5ab)",margin:"0 auto"}} position="static">
       <Container style={{  background: "#6600ffd8"}} maxWidth="xl">
         <Toolbar  disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -115,17 +115,7 @@ function ResponsiveAppBar() {
           >
            {currentUser.displayName}
           </Typography>
-          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box> */}
+       
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -209,7 +199,26 @@ function ResponsiveAppBar() {
         {currentUser.email}
           </Typography>
           </Box>
+
+          
         </Toolbar>
+
+        <Toolbar style={{border:"1px solid white",width:"80%",margin:"auto",borderRadius:"10px",justifyContent:"center",marginTop:"20px"}}  disableGutters>
+        
+         <Box sx={{ flexGrow: 1,flexDirection:'column', display: { xs: 'flex', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+           
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page}
+              </Button>
+            ))}
+          </Box>
+
+        
+      </Toolbar>
     </AppBar>
   );
 }

@@ -1,8 +1,9 @@
-import React,{useEffect,useState} from 'react'
+import React,{useContext, useEffect,useState} from 'react'
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";    
 import "../../src/style.css"
-import { db } from "../firebase";
+import { db } from "../firebase";import { AuthContext } from "../context/AuthContext";
+
 
 
 
@@ -10,6 +11,7 @@ import { db } from "../firebase";
 
 export const Contact = ({key,route,avatar,name}) => {
     const [chats, setChats] = useState([]);
+    const { currentUser} = useContext(AuthContext)
 
 
     
@@ -20,12 +22,12 @@ export const Contact = ({key,route,avatar,name}) => {
         // it in array to display
         querySnapshot.forEach(element => {
             var data = element.data();
-            setChats(chat => [...chat , data]);
+            setChats(chat => [...chat.filter((i)=>{return i.name!==currentUser.displayName}) , data]);
              
         });
     })
 
-      }, []);
+      }, [currentUser.displayName]);
 
 
    
