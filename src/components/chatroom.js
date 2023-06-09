@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useCallback, useRef,useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useContext,
+} from "react";
 import { Avatar, Modal } from "@mui/material";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { Link, useParams } from "react-router-dom";
@@ -9,7 +15,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Webcam from "react-webcam";
 import CameraInput from "./input";
 import { AuthContext } from "../context/AuthContext";
-
+import { Contact } from "./contact";
 
 // import {
 //   collection,
@@ -25,7 +31,7 @@ const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
 const videoConstraints = {
   facingMode: FACING_MODE_USER,
-  mirrored:"false"
+  mirrored: "false",
 };
 
 export const Chatroom = () => {
@@ -33,7 +39,7 @@ export const Chatroom = () => {
   const [messages, setMessages] = useState([]);
   const [User, setUser] = useState(null);
   const [Username, setUsername] = useState("");
-  
+
   const [Message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
   const { username } = useParams();
@@ -44,7 +50,7 @@ export const Chatroom = () => {
   const [picture, setPicture] = useState("");
   const { currentUser } = useContext(AuthContext);
 
-  console.log("cuser",currentUser);
+  console.log("cuser", currentUser);
 
   const webcamRef = useRef(null);
   const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
@@ -62,7 +68,7 @@ export const Chatroom = () => {
   const handleClick = useCallback(() => {
     setFacingMode((prevState) =>
       prevState === FACING_MODE_USER
-        ? FACING_MODE_ENVIRONMENT  
+        ? FACING_MODE_ENVIRONMENT
         : FACING_MODE_USER
     );
   }, []);
@@ -70,10 +76,10 @@ export const Chatroom = () => {
   // chats.filter((x) => x.username === { username });
   // chats.filter((x) => x.id === { id });
 
-  // use effect listener for fetching comments
+  // use effect listener for fetching messages
   useEffect(() => {
     let unsub;
-    if (id) {
+    if (id && username) {
       unsub = db
         .collection("chat-rooms")
         .doc(id)
@@ -86,7 +92,7 @@ export const Chatroom = () => {
     return () => {
       unsub();
     };
-  }, [id]);
+  }, [id,username]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -95,7 +101,7 @@ export const Chatroom = () => {
 
         setIsme(true);
         setUser(authUser.displayName);
-        setUsername(User)
+        setUsername(User);
       } else {
         // the user has logged out
 
@@ -116,19 +122,19 @@ export const Chatroom = () => {
       .add({
         id: Math.random(),
         text: Message,
-        username: User,
+        username:User,
         image: picture && picture,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
     setMessage("");
     setPicture("");
-    setOpenCamera(false)
+    setOpenCamera(false);
     console.log("pc", picture);
   };
 
   const clearChat = (e) => {
     e.preventDefault();
-    messages.length!==0
+    messages.length !== 0
       ? db
           .collection("chat-rooms")
           .doc(id)
@@ -174,7 +180,7 @@ export const Chatroom = () => {
                   style={{ height: "90%", width: "100%" }}
                   audio={false}
                   ref={webcamRef}
-                   mirrored={facingMode===FACING_MODE_USER}
+                  mirrored={facingMode === FACING_MODE_USER}
                   screenshotFormat="image/jpeg"
                   videoConstraints={{
                     ...videoConstraints,
@@ -199,29 +205,22 @@ export const Chatroom = () => {
             >
               {picture !== "" ? (
                 <>
-                 <div className="msginput">
-        <input
-          value={Message}
-          onChange={(e) => setMessage(e.target.value)}
-          type="text"
-          placeholder="Write a message"
-        />
-      
-      <button
-                    onClick={(e) => sendMessage(e)}
-                    className="submit"
-                  >
-                     <NearMeIcon />
-                  </button>
+                  <div className="msginput">
+                    <input
+                      value={Message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      type="text"
+                      placeholder="Write a message"
+                    />
 
-                  <button
-                 onClick={retakeImg}
-                 className="submit"
-                  >
-                   Retake
-                  </button>
-      </div>
-         
+                    <button onClick={(e) => sendMessage(e)} className="submit">
+                      <NearMeIcon />
+                    </button>
+
+                    <button onClick={retakeImg} className="submit">
+                      Retake
+                    </button>
+                  </div>
                 </>
               ) : (
                 <CameraInput
@@ -261,7 +260,10 @@ export const Chatroom = () => {
       </div>
 
       <div className="chatbox">
-        {messages.map((msg) => (
+
+   <>{
+    !Contact && <>
+         {messages.map((msg) => (
           <ChatBubble
             key={msg.id}
             image={msg.image}
@@ -271,14 +273,47 @@ export const Chatroom = () => {
               backgroundColor: "#6600ffd8",
               color: "white",
               padding: "2px 10px",
-              alignSelf: currentUser.displayName === msg.username ? "end" : "start",
+              alignSelf:
+                currentUser.displayName === msg.username ? "end" : "start",
               margin: "5px 0",
-              borderRadius: currentUser.displayName === msg.username ? "0 12px 12px 12px" : "12px 0 12px 12px",
-              width:"50%"
-          
+              borderRadius:
+                currentUser.displayName === msg.username
+                  ? "0 12px 12px 12px"
+                  : "12px 0 12px 12px",
+              width: "50%",
             }}
           />
         ))}
+    </>
+   }
+   </>
+
+   <>{
+    Contact && <>
+         {messages.map((msg) => (
+          <ChatBubble
+            key={msg.id}
+            image={msg.image}
+            text={msg.text}
+            username={ msg.username}
+            style={{
+              backgroundColor: "#6600ffd8",
+              color: "white",
+              padding: "2px 10px",
+              alignSelf:
+                currentUser.displayName === msg.username ? "end" : "start",
+              margin: "5px 0",
+              borderRadius:
+                currentUser.displayName === msg.username
+                  ? "0 12px 12px 12px"
+                  : "12px 0 12px 12px",
+              width: "50%",
+            }}
+          />
+        ))}
+    </>
+   }
+   </>
       </div>
 
       <div className="msginput">

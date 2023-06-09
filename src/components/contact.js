@@ -55,6 +55,7 @@ export const Contact = ({key,route,avatar,name}) => {
 chats.map((chat)=>(
     <div
     key={chat.id}
+    
     style={{
       width: "100%",
       justifyContent: "center",

@@ -208,7 +208,7 @@ function ResponsiveAppBar() {
          <Box sx={{ flexGrow: 1,flexDirection:'column', display: { xs: 'flex', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.id}
            
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
